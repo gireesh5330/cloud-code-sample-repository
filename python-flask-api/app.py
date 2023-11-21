@@ -4,7 +4,6 @@ import json
 import time
 import random
 from flask import Flask, jsonify, request
-
 app = Flask(__name__)
 
 # Setting up logger
@@ -25,17 +24,14 @@ if "delay" in os.environ:
 
 if "uptimecheckfailure" in os.environ:
    introduce_uptimetimecheckfailure = os.environ["uptimecheckfailure"]
-
 @app.route('/healthy', methods=['GET'])
 def healthy():
     if introduce_uptimetimecheckfailure:
        return "Error",500
     return "All Izz Well"
-
 @app.route('/inventory', methods=['GET'])
 def inventorylist():
    return jsonify([inventory_items])
-
 @app.route('/inventory/<string:productid>', methods=['GET'])
 def inventory(productid):
    qty = inventory_items.get(productid)
